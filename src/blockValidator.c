@@ -5,16 +5,22 @@
 //
 // functions for validating blocks
 
-bool hasValidAuthor(Block * block);
-bool hasValidSignature(Block * block);
-bool hasValidPreviousHash(Block * block);
-bool hasValidTimestamp(Block * block);
-bool hasValidDataSize(Block * block);
-bool hasValidNonce(Block * block);
+#include "blockFactory.h"
+#include "blockValidator.h"
+#include "util.h"
 
-bool isValidBlock(Block * block) {
-	return hasValidAuthor(block) && hasValidSignature(block) && hasValidPreviousHash(block) && hasValidTimestamp(block)
-		&& hasValidDataSize(block) && hasValidNonce(block);
+bool proofOfAuthor(BlockMetaddata * blockMetadata) {
+	bool blockWasEncoded = blockMetadata->blockIsEncoded;
+	if (!blockWasEncoded) { encodeBlock(block); }
+	bool signatureIsValid = isValidRSASignature(blockMetadata->authorKey, blockMetadata->block, blockMetadata->blockSize);
+	if (!blockWasEncoded) { decodeBlock(blockMetadata); }
+	return signatureIsValid;
 }
 
-
+bool proofOfWork(BlockMetadata * blockMetadata) {
+	bool blockWasEncoded = blockMetadata->blockIsEncoded;
+	if (blockWasEncoded) { decodeBlock(blockMetadata); }
+	unsigned char targetHash[SHA_512_HASH_SIZE];
+	calculateTargetHash(calculateDifficulty(blockMetadata->blockSize), targetHash);
+	return compareSHA512Hashes(blockMetadata->hash, targetHash) == -1;
+}

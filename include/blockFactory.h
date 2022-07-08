@@ -8,12 +8,18 @@
 #ifndef blockFactory_h
 #define blockFactory_h
 
+#define NUM_ENCODED_BYTES 4
+#define ENCODED_BYTES {1, 2, 3, 4}
+#define NEWLINE_CHARACTER '\n'
+#define TERMINAL_CHARACTER = '\0'
+
 #include "block.h"
 
-Block * createBlock(RSAPrivateKey *, SHA512Hash *, void *, unsigned long);
-Block * loadBlockFromFile(char *);
-void saveBlockToFile(Block *, char *);
-void calculateBlockHash(Block *, SHA512Hash *);
-void freeBlock(Block *);
+BlockMetadata * getBlockMetadata(RSAPublicKey *, SHA512Hash *, void *, unsigned long long);
+
+void encodeBlock(BlockMetadata *);
+void decodeBlock(BlockMetadata *);
+
+void freeBlockMetadata(BlockMetadata *);
 
 #endif // blockFactory_h //

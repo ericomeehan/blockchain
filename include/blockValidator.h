@@ -10,6 +10,7 @@
 
 #include "block.h"
 
-bool isValidBlock(Block *);
+bool proofOfAuthor(BlockMetadata *);
+bool proofOfWork(BlockMetadata *);
 
 #endif // blockValidator_h //
