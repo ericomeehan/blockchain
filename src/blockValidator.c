@@ -12,7 +12,7 @@
 
 bool proofOfAuthor(BlockMetadata * blockMetadata) {
 	bool blockWasEncoded = blockMetadata->blockIsEncoded;
-	if (!blockWasEncoded) { encodeBlock(block); }
+	if (!blockWasEncoded) { encodeBlock(blockMetadata); }
 	bool signatureIsValid = isValidRSASignature(blockMetadata->authorKey, blockMetadata->block, blockMetadata->blockSize);
 	if (!blockWasEncoded) { decodeBlock(blockMetadata); }
 	return signatureIsValid;

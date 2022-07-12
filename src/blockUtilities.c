@@ -6,8 +6,13 @@
 // functions for blockchain utilities
 
 #include <math.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/un.h>
 #include <unistd.h>
 
+#include "blockFactory.h"
 #include "blockUtilities.h"
 #include "util.h"
 
@@ -22,19 +27,19 @@ void calculateTargetHash(int difficulty, SHA512Hash * hash) {
 }
 
 int externalValidation(BlockMetadata * blockMetadata, char * path) {
-	int socket = socket(AF_UNIX, SOCK_STREAM, 0);
+	int sock = socket(AF_UNIX, SOCK_STREAM, 0);
 	// check for errors
 	struct sockaddr_un server;
 	server.sun_family = AF_UNIX;
 	strcpy(server.sun_path, path);
-	if (connect(socket, (struct sockaddr *) &server, sizeof(struct sockaddr_un)) < 0) {
+	if (connect(sock, (struct sockaddr *) &server, sizeof(struct sockaddr_un)) < 0) {
 		// errors
 	}
 	bool blockWasEncoded = blockMetadata->blockIsEncoded;
 	if (blockWasEncoded) { decodeBlock(blockMetadata); }
-	write(socket, blockMetadata->block, blockMetadata->blockSize);
+	write(sock, blockMetadata->block, blockMetadata->blockSize);
 	int response;
-	read(socket, &response, 4);
-	close(socket);
+	read(sock, &response, 4);
+	close(sock);
 	return response;
 }

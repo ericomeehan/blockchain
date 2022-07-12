@@ -7,8 +7,9 @@
 #include <unistd.h>
 
 #include "blockExchange.h"
+#include "blockFactory.h"
 
-#define RESPONSE_SIZE 4
+#define RESPONSE_SIZE 1
 
 int sendBlock(BlockMetadata * blockMetadata, int socket) {
 	bool blockWasEncoded = blockMetadata->blockIsEncoded;
@@ -16,7 +17,7 @@ int sendBlock(BlockMetadata * blockMetadata, int socket) {
 	int response = 0;
 	write(socket, blockMetadata->block, BLOCK_HEADERS_SIZE);
 	read(socket, &response, RESPONSE_SIZE);
-	if (response}
+	if (response) {
 		response = 0;
 		write(socket, blockMetadata->block, blockMetadata->blockSize);
 		read(socket, &response, RESPONSE_SIZE);
@@ -28,11 +29,11 @@ int sendBlock(BlockMetadata * blockMetadata, int socket) {
 
 BlockMetadata * receiveBlock(int socket, Validator * validators) {
 	BlockMetadata * blockMetadata = (BlockMetadata *) malloc(sizeof(BlockMetadata));
-	blockMetadata->block = (EncodedBlock *) calloc(BLOCK_HEADERS_SIZE + 1);
+	blockMetadata->block = (EncodedBlock *) calloc(BLOCK_HEADERS_SIZE + 1, 1);
 	read(socket, blockMetadata->block, BLOCK_HEADERS_SIZE);
 	blockMetadata->blockIsEncoded = false;
 	decodeBlock(blockMetadata);
-	blockMetadata->blockSize = BLOCK_HEADERS_SIZE + ((EncodedBlock *) blockMetadata->block)->dataSize;
+	blockMetadata->blockSize = BLOCK_HEADERS_SIZE + atoll(((EncodedBlock *) blockMetadata->block)->headers.dataSize);
 	bool response = true;
 	Validator * validator = validators;
 	while (validator && response) {
@@ -42,8 +43,8 @@ BlockMetadata * receiveBlock(int socket, Validator * validators) {
 	write(socket, &response, RESPONSE_SIZE);
 	if (response) {
 		free(blockMetadata->block);
-		blockMetadata->block = malloc(blockSize);
-		read(socket, blockMetadata->block, blockSize);
+		blockMetadata->block = malloc(blockMetadata->blockSize);
+		read(socket, blockMetadata->block, blockMetadata->blockSize);
 		response = proofOfAuthor(blockMetadata) && proofOfWork(blockMetadata);
 		write(socket, &response, RESPONSE_SIZE);
 	}
