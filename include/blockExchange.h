@@ -7,7 +7,10 @@
 #ifndef blockExchange_h
 #define blockExchange_h
 
-void sendBlock(Block *, char *);
-Block * receiveBlock(void);
+#include "block.h"
+#include "blockValidator.h"
+
+int sendBlock(BlockMetadata *, int);
+BlockMetadata * receiveBlock(int, Validator *);
 
 #endif // blockExchange_h //

@@ -10,6 +10,12 @@
 
 #include "block.h"
 
+typedef struct Validator {
+	struct Validator * next;
+	bool (* validationFunction)(BlockMetadata *, char *);
+	char address[PATH_MAX];
+} Validator;
+
 bool proofOfAuthor(BlockMetadata *);
 bool proofOfWork(BlockMetadata *);
 

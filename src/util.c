@@ -38,10 +38,10 @@ void arbitrarilyPrecisePowerOfTwo(int power, unsigned char * hexidecimalOutput) 
 
 void createRSASignature(EVP_PKEY * key, unsigned char * digest, void * data, unsigned long long dataSize) {
 	EVP_MD_CTX * ctx = EVP_MD_CTX_new();
-	if ((EVP_DigestSignInit(ctx, NULL, EVP_sha512(), NULL, rsaKey)) <= 0) {
+	if ((EVP_DigestSignInit(ctx, NULL, EVP_sha512(), NULL, key)) <= 0) {
 		// error
 	}
-	if (EVP_DigestSignUpdate(ctx, &block->data, block->headers.dataSize) <=0) {
+	if (EVP_DigestSignUpdate(ctx, data, dataSize) <=0) {
 		// error
 	}
 	size_t len;

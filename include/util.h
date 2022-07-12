@@ -12,7 +12,9 @@
 
 int compareSHA512Hashes(unsigned char *, unsigned char *);
 void createRSASignature(EVP_PKEY *, unsigned char *, void *, unsigned long long);
+int externalValidation(BlockMetadata *);
 void generateSHA512Hash(unsigned char *, unsigned char *, unsigned long long);
-void loadRsaKey(EVP_PKEY *, unsigned char *);
+void loadRSAKey(EVP_PKEY *, unsigned char *);
+void loadRSAKeyFromFile(EVP_PKEY *, FILE *);
 
 #endif // util_h //

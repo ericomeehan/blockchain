@@ -13,7 +13,7 @@
 
 void computeNonce(BlockMetadata *);
 
-BlockMetadata * getBlockMetadata(RSAPublicKey * key, SHA512Hash * previousHash,
+BlockMetadata * newBlockMetadata(RSAPublicKey * key, SHA512Hash * previousHash,
 		void * data, unsigned long long dataSize) {
 	BlockMetadata * blockMetadata = (BlockMetadata *) malloc(sizeof(BlockMetadata));
 	blockMetadata->block = calloc(BLOCK_HEADERS_SIZE + dataSize);

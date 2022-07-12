@@ -8,7 +8,7 @@
 #ifndef block_h
 #define block_h
 
-#define BLOCK_HEADERS_SIZE
+#define BLOCK_HEADERS_SIZE 0
 #define DATA_SIZE_LENGTH 8
 #define PEM_RSA_PUBLIC_KEY_SIZE 801
 #define RSA_PRIVATE_KEY_SIZE 4096
@@ -45,9 +45,10 @@ typedef struct BlockMetadata {
 	void * block;
 	unsigned long long blockDifficulty;
 	bool blockIsEncoded;
+	bool blockIsValid;
 	unsigned long long blockSize;
 	SHA512Hash hash[SHA_512_HASH_SIZE];
 	time_t timestamp;
-}
+} BlockMetadata;
 
 #endif // block_h //

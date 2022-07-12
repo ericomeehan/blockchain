@@ -15,7 +15,7 @@
 
 #include "block.h"
 
-BlockMetadata * getBlockMetadata(RSAPublicKey *, SHA512Hash *, void *, unsigned long long);
+BlockMetadata * newBlockMetadata(RSAPublicKey *, SHA512Hash *, void *, unsigned long long);
 
 void encodeBlock(BlockMetadata *);
 void decodeBlock(BlockMetadata *);

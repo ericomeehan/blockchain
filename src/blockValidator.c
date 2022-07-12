@@ -6,10 +6,11 @@
 // functions for validating blocks
 
 #include "blockFactory.h"
+#include "blockUtilities.h"
 #include "blockValidator.h"
 #include "util.h"
 
-bool proofOfAuthor(BlockMetaddata * blockMetadata) {
+bool proofOfAuthor(BlockMetadata * blockMetadata) {
 	bool blockWasEncoded = blockMetadata->blockIsEncoded;
 	if (!blockWasEncoded) { encodeBlock(block); }
 	bool signatureIsValid = isValidRSASignature(blockMetadata->authorKey, blockMetadata->block, blockMetadata->blockSize);
