@@ -16,7 +16,7 @@
 
 const int ENCODED_BYTES[4] = {1, 2, 3, 4};
 
-BlockMetadata * newBlockMetadata(RSAPublicKey *, SHA512Hash *, void *, unsigned long long);
+BlockMetadata * newBlockWithMetadata(RSAPublicKey *, SHA512Hash *, void *, unsigned long long);
 
 void encodeBlock(BlockMetadata *);
 void decodeBlock(BlockMetadata *);
