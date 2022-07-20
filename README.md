@@ -10,7 +10,7 @@ A blockchain implementation for arbitrary data and one-to-many parent-child rela
 This document describes the desired outcomes for the project, not its current state.  For up-to-date information, visit
 https://www.eom.dev.
 
-[video-journal-3a5bf0556fed](https://youtu.be/hZhg2RTO-eQ) provides an overview of blockchain concepts and a description of how
+[video-journal-3a5bf0556fed](https://youtu.be/1wnBnqP_yTk) provides an overview of blockchain concepts and a description of how
 this project differs from the norm.
 
 This blockchain is intended to store arbitrary data in a non-binary tree to produce an immutable, self-organizing ledgar of
