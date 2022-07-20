@@ -13,7 +13,7 @@ https://www.eom.dev.
 [video-journal-3a5bf0556fed](https://youtu.be/1wnBnqP_yTk) provides an overview of blockchain concepts and a description of how
 this project differs from the norm.
 
-This blockchain is intended to store arbitrary data in a non-binary tree to produce an immutable, self-organizing ledgar of
+This blockchain is intended to store arbitrary data in a non-binary tree to produce an immutable, self-organizing ledger of
 network activity and content.  In this model, closely related data is linked upon creation, the impact of that data can be
 measured precicely, and the contributor is rewarded for that impact directly.
 
